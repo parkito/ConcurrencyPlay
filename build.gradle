@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.3.11'
+        kotlinVersion = '1.3.20'
     }
 
     repositories {
@@ -17,10 +17,9 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'kotlin'
 
-    version = '0.10.7'
+    version = '0.0.1'
     group = 'com.siksmfp.concurrency.play'
-    sourceCompatibility = JavaVersion.VERSION_1_8
-
+    sourceCompatibility = JavaVersion.VERSION_11
 
     compileKotlin {
         kotlinOptions {
@@ -33,10 +32,6 @@ allprojects {
             freeCompilerArgs = ["-Xjsr305=strict"]
             jvmTarget = "1.8"
         }
-    }
-
-    bootRepackage {
-        enabled = false
     }
 
     repositories {
