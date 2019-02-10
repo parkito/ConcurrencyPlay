@@ -16,33 +16,31 @@ public class StartThread {
 
         System.out.println("2---------------");
     }
-}
 
-class CustomRun implements Runnable {
-    private String[] toPrint = {"1", "2", "3", "4", "5"};
+    static class CustomRun implements Runnable {
+        private String[] toPrint = {"1", "2", "3", "4", "5"};
 
-    @Override
-    public void run() {
-        for (String s : toPrint) {
-            System.out.println(Thread.currentThread().getName() + " " + s);
+        @Override
+        public void run() {
+            for (String s : toPrint) {
+                System.out.println(Thread.currentThread().getName() + " " + s);
+            }
         }
     }
-}
 
-class CustomThread extends Thread {
+    static class CustomThread extends Thread {
+        private Thread currentThread;
+        private String[] toPrint = {"1", "2", "3", "4", "5"};
 
-    private Thread currentThread;
+        public CustomThread() {
+            currentThread = new Thread(this);
+        }
 
-    private String[] toPrint = {"1", "2", "3", "4", "5"};
-
-    public CustomThread() {
-        currentThread = new Thread(this);
-    }
-
-    @Override
-    public void run() {
-        for (String s : toPrint) {
-            System.out.println(Thread.currentThread().getName() + " " + s);
+        @Override
+        public void run() {
+            for (String s : toPrint) {
+                System.out.println(Thread.currentThread().getName() + " " + s);
+            }
         }
     }
 }
