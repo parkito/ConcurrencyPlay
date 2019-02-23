@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FutureExecutor {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -23,6 +25,31 @@ public class FutureExecutor {
         }
 
         service.shutdown();
+
+
+        //new style
+
+        ExecutorService service1 = Executors.newFixedThreadPool(10);
+
+        List<CallableDistance> tasks = IntStream.range(100, 110)
+                .mapToObj(i -> new CallableDistance(i, i + 2))
+                .collect(Collectors.toList());
+
+        List<Future<Integer>> futures = service1.invokeAll(tasks);
+
+        futures.stream()
+                .map(f -> {
+                    try {
+                        return f.get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })
+                .collect(Collectors.toList())
+        .forEach(System.out::println);
+
+        service1.shutdown();
 
     }
 }
