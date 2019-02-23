@@ -1,4 +1,4 @@
-package com.concurrency.play.language.java.basic;
+package com.concurrency.play.language.java.basic.daemon;
 
 public class Daemons {
     public static void main(String[] args) {

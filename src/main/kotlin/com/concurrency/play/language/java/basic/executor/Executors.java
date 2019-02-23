@@ -1,4 +1,6 @@
-package com.concurrency.play.language.java.basic;
+package com.concurrency.play.language.java.basic.executor;
+
+import com.concurrency.play.language.java.basic.runnable.Task;
 
 import java.util.concurrent.ExecutorService;
 

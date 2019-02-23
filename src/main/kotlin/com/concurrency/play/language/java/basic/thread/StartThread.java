@@ -1,6 +1,7 @@
-package com.concurrency.play.language.java.basic;
+package com.concurrency.play.language.java.basic.thread;
 
 public class StartThread {
+
     public static void main(String[] args) {
         Thread[] threadArr1 = new Thread[10];
         for (int i = 0; i < 10; i++) {

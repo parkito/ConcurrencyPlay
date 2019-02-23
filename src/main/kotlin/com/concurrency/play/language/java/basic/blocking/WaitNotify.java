@@ -1,4 +1,4 @@
-package com.concurrency.play.language.java.basic;
+package com.concurrency.play.language.java.basic.blocking;
 
 public class WaitNotify {
 

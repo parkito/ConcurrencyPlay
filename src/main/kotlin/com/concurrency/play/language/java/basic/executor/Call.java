@@ -1,4 +1,4 @@
-package com.concurrency.play.language.java.basic;
+package com.concurrency.play.language.java.basic.executor;
 
 import java.util.Random;
 import java.util.concurrent.Callable;
