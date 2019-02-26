@@ -18,7 +18,6 @@ public class Main {
             TimeUnit.SECONDS.sleep(1);
             new Thread(philosophers[philosopherToEat]).start();
         }
-
     }
 
     private static ChopStick[] createChopSticks(int n) {
