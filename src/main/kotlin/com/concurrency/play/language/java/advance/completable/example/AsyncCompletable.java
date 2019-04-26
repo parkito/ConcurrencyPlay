@@ -1,4 +1,4 @@
-package com.concurrency.play.language.java.advance.completable;
+package com.concurrency.play.language.java.advance.completable.example;
 
 import java.util.concurrent.CompletableFuture;
 
