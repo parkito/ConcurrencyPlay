@@ -1,11 +1,12 @@
 package com.concurrency.play.language.java.advance.completable.example;
 
+import com.concurrency.play.Utils;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 public class SimpleFuture {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -23,11 +24,7 @@ public class SimpleFuture {
         //Async running
         CompletableFuture.runAsync(() -> {
             System.out.println(Thread.currentThread().getName());
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-
-            }
+            Utils.sleepSeconds(2);
         });
         CompletableFuture.runAsync(() -> System.out.println(Thread.currentThread().getName()));
 

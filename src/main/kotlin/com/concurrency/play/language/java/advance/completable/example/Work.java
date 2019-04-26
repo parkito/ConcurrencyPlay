@@ -1,7 +1,8 @@
 package com.concurrency.play.language.java.advance.completable.example;
 
+import com.concurrency.play.Utils;
+
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Work {
 
@@ -14,14 +15,10 @@ public class Work {
     }
 
     public Work returnWork() {
-        System.out.println("Modifying "+Thread.currentThread().getName() +" starting");
-        try {
-            internalCounter++;
-            TimeUnit.SECONDS.sleep(RANDOM.nextInt(max - min + 1) + min);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Modifying "+ Thread.currentThread().getName() +" finished");
+        System.out.println("Modifying " + Thread.currentThread().getName() + " starting");
+        internalCounter++;
+        Utils.sleepSeconds(RANDOM.nextInt(max - min + 1) + min);
+        System.out.println("Modifying " + Thread.currentThread().getName() + " finished");
         return this;
     }
 }

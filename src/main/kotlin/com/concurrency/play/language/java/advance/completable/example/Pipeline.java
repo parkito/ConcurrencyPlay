@@ -1,5 +1,7 @@
 package com.concurrency.play.language.java.advance.completable.example;
 
+import com.concurrency.play.Utils;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,15 +23,15 @@ public class Pipeline {
         List<String> result = new ArrayList<>();
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        generateNamesTask.get().forEach(fileName ->
-                {
+        generateNamesTask.get().forEach(fileName -> {
                     try {
-                        result.add(CompletableFuture.completedFuture(fileName)
-                                .thenApplyAsync(createFileTask, executorService)
-                                .thenApplyAsync(addTimeTask, executorService)
-                                .get());
-                    } catch (Exception ex) {
-
+                        result.add(
+                                CompletableFuture.completedFuture(fileName)
+                                        .thenApplyAsync(createFileTask, executorService)
+                                        .thenApplyAsync(addTimeTask, executorService)
+                                        .get()
+                        );
+                    } catch (Exception ignored) {
                     }
                 }
         );
@@ -38,7 +40,7 @@ public class Pipeline {
         System.out.println(result);
     }
 
-    public static Supplier<List<String>> generateNamesTask = () -> {
+    private static Supplier<List<String>> generateNamesTask = () -> {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             result.add(UUID.randomUUID().toString());
@@ -46,18 +48,17 @@ public class Pipeline {
         return result;
     };
 
-    public static Function<String, String> createFileTask = (String file) -> {
-
+    private static Function<String, String> createFileTask = (String file) -> {
         try {
             Files.createFile(Paths.get(file + ".txt"));
-            TimeUnit.SECONDS.sleep(2);
+            Utils.sleepSeconds(2);
         } catch (Exception e) {
             throw new IllegalStateException(e.getMessage());
         }
         return file;
     };
 
-    public static Function<String, String> addTimeTask = (fileName) -> {
+    private static Function<String, String> addTimeTask = (fileName) -> {
         List<String> timestamp = Arrays.asList(new Date().toString(), Thread.currentThread().getName());
         try {
             Files.write(Paths.get(fileName + ".txt"), timestamp);
