@@ -77,7 +77,7 @@ public class Combining {
                 .collect(Collectors.toList());
 
         // Create a combined Future using allOf()
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(// Returns a new CompletableFuture that is completed when all of the given CompletableFutures complet
                 pageContentFutures.toArray(new CompletableFuture[pageContentFutures.size()])
         );
 
