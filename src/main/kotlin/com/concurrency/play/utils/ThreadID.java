@@ -1,4 +1,4 @@
-package com.concurrency.play.algorithm;
+package com.concurrency.play.utils;
 
 public class ThreadID {
 
