@@ -1,6 +1,6 @@
 package com.concurrency.play.language.java.advance.completable.example;
 
-import com.concurrency.play.Utils;
+import com.concurrency.play.utils.Utils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +13,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
 

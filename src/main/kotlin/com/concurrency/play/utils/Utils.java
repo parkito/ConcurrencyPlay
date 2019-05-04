@@ -1,4 +1,4 @@
-package com.concurrency.play;
+package com.concurrency.play.utils;
 
 import java.util.concurrent.TimeUnit;
 

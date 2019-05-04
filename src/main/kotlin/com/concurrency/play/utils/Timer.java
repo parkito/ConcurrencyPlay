@@ -1,4 +1,4 @@
-package com.concurrency.play.language.java;
+package com.concurrency.play.utils;
 
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 

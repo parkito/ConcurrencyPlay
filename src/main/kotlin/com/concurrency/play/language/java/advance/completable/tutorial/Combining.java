@@ -1,6 +1,6 @@
 package com.concurrency.play.language.java.advance.completable.tutorial;
 
-import com.concurrency.play.Utils;
+import com.concurrency.play.utils.Utils;
 
 import java.util.Arrays;
 import java.util.List;

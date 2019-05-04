@@ -1,6 +1,6 @@
 package com.concurrency.play.language.java.advance.completable.tutorial;
 
-import com.concurrency.play.Utils;
+import com.concurrency.play.utils.Utils;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -9,9 +9,9 @@ public class Transforming {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         thenApply();
-//        applySequence();
-//        thenAccept();
-//        thenRun();
+        applySequence();
+        thenAccept();
+        thenRun();
     }
 
 //To have more control over the thread that executes the callback task,
