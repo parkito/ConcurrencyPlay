@@ -1,8 +1,7 @@
 package com.concurrency.play.algorithm.lock;
 
-import com.concurrency.play.utils.ThreadID;
 import com.concurrency.play.algorithm.lock.api.Lock;
-import com.concurrency.play.utils.Utils;
+import com.concurrency.play.utils.ThreadID;
 
 //Peterson locking algorithm. Works only for 2 threads
 public class Peterson implements Lock {

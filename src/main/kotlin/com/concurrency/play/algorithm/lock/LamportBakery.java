@@ -9,8 +9,8 @@ import java.util.List;
 //Lamport’s Bakery locking algorithm works for n threads
 public class LamportBakery implements Lock {
     private int theadNumber;
-    private List<Integer> threads = new ArrayList<>(theadNumber); // ticket for threads in line, n - number of threads
-    private List<Boolean> flags = new ArrayList<>(theadNumber); // True when thread flags in line
+    private List<Integer> threads = new ArrayList<>(theadNumber); // number for threads in line, n - number of threads
+    private List<Boolean> flags = new ArrayList<>(theadNumber); // true when thread flags in line
 
     public LamportBakery(int threadNumber) {
         this.theadNumber = threadNumber;
@@ -41,7 +41,7 @@ public class LamportBakery implements Lock {
 
                 while (threads.get(i) != 0
                         && (threads.get(threadId) > threads.get(i)
-                        || (threads.get(threadId) == threads.get(i) && threadId > i))
+                        || (threads.get(threadId).equals(threads.get(i)) && threadId > i))
                 ) {
                     Thread.yield();
                 }
