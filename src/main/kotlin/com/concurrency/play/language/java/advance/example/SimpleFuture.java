@@ -1,4 +1,4 @@
-package com.concurrency.play.language.java.advance.completable.example;
+package com.concurrency.play.language.java.advance.example;
 
 import com.concurrency.play.utils.Utils;
 
