@@ -38,8 +38,8 @@ public class Executor {
                 Task task = blockingQueue.take();
                 executor.execute(() -> {
                     System.out.println(Thread.currentThread().getName() + ". Processing " + task);
-                    Utils.sleepSeconds(task.processTime);
-                    task.status = FINISHED;
+                    Utils.sleepSeconds(task.getProcessTime());
+                    task.setStatus(FINISHED);
                     resultQueue.add(task);
                     System.out.println("Processing finished " + task);
                 });

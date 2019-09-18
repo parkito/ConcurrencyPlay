@@ -6,13 +6,37 @@ import static com.concurrency.play.pattern.active.monitor.model.Status.NOT_START
 
 public class Task {
 
-    public String taskName;
-    public Status status;
-    public int processTime;
+    private String taskName;
+    private Status status;
+    private int processTime;
 
     public Task(String taskName, int processTime) {
         this.taskName = taskName;
         this.status = NOT_STARTED;
+        this.processTime = processTime;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getProcessTime() {
+        return processTime;
+    }
+
+    public void setProcessTime(int processTime) {
         this.processTime = processTime;
     }
 
