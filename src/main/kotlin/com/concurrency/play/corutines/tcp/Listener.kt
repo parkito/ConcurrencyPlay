@@ -6,26 +6,31 @@ import java.io.PrintWriter
 import java.net.ServerSocket
 import java.net.Socket
 
-class Listener(port: Int) {
-    private val serverSocket: ServerSocket
+class Listener(private val port: Int) {
 
-    private val clientSocket: Socket
-    private val printWriter: PrintWriter
-    private val bufferedReader: BufferedReader
+    private lateinit var serverSocket: ServerSocket
 
-    init {
-        serverSocket = ServerSocket(port)
-        clientSocket = serverSocket.accept()
+    private lateinit var clientSocket: Socket
+    private lateinit var printWriter: PrintWriter
+    private lateinit var bufferedReader: BufferedReader
 
-        printWriter = PrintWriter(clientSocket.getOutputStream(), true)
-        bufferedReader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
+    companion object {
+        private const val SUCCESS_RESPONSE = "OK"
     }
 
     fun listen() {
+        serverSocket = ServerSocket(port)
+
         while (true) {
+            clientSocket = serverSocket.accept()
+            bufferedReader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
+
             val received = bufferedReader.readLine()
             println("Listener: received $received")
-            printWriter.write("OK")
+
+            println("Listener: sending response OK")
+            printWriter = PrintWriter(clientSocket.getOutputStream(), true)
+            printWriter.println(SUCCESS_RESPONSE)
         }
     }
 }
