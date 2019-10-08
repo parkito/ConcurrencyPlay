@@ -1,19 +1,17 @@
 package com.concurrency.play.corutines.tcp
 
+import com.concurrency.play.corutines.tls.factory.SocketFactory
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
 
-class Publisher(port: Int) {
+class Publisher(private val clientSocket: Socket) {
 
-    private val clientSocket: Socket
     private val printWriter: PrintWriter
     private val bufferedReader: BufferedReader
 
     init {
-        clientSocket = Socket("localhost", port)
-
         printWriter = PrintWriter(clientSocket.getOutputStream(), true)
         bufferedReader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
     }
@@ -36,7 +34,8 @@ fun main(args: Array<String>) {
 
     println("Publisher: publishing $message on localhost:$port")
 
-    val publisher = Publisher(port)
+//    val publisher = Publisher(SocketFactory.createTlsClientSocket("localhost", port))
+    val publisher = Publisher(SocketFactory.createClientSocket("localhost", port))
     publisher.publish(message)
 
     println("Publisher: shutting down")

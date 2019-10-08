@@ -1,14 +1,13 @@
 package com.concurrency.play.corutines.tcp
 
+import com.concurrency.play.corutines.tls.factory.SocketFactory
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.ServerSocket
 import java.net.Socket
 
-class Listener(private val port: Int) {
-
-    private lateinit var serverSocket: ServerSocket
+class Listener(private val serverSocket: ServerSocket) {
 
     private lateinit var clientSocket: Socket
     private lateinit var printWriter: PrintWriter
@@ -19,8 +18,6 @@ class Listener(private val port: Int) {
     }
 
     fun listen() {
-        serverSocket = ServerSocket(port)
-
         while (true) {
             clientSocket = serverSocket.accept()
             bufferedReader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
@@ -40,7 +37,8 @@ fun main(args: Array<String>) {
 
     println("Listener: start listen to localhost:$port")
 
-    val listener = Listener(port)
+    val listener = Listener(SocketFactory.createServerSocket(port))
+//    val listener = Listener(SocketFactory.createTlsServerSocket(port))
 
     listener.listen()
 

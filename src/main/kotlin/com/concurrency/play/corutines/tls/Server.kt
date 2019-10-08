@@ -8,7 +8,7 @@ import javax.net.ssl.SSLServerSocket
 import javax.net.ssl.SSLSocket
 
 class Server(val port: Int) {
-    private val serverSocket: SSLServerSocket = SocketFactory.createServerSocket(port)
+    private val serverSocket: SSLServerSocket = SocketFactory.createTlsServerSocket(port)
 
     fun start() {
         try {

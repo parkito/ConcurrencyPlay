@@ -1,32 +1,28 @@
 package com.concurrency.play.corutines.tls.factory
 
+import java.net.ServerSocket
+import java.net.Socket
 import javax.net.ssl.SSLServerSocket
-import javax.net.ssl.SSLServerSocketFactory
 import javax.net.ssl.SSLSocket
-import javax.net.ssl.SSLSocketFactory
 
 object SocketFactory {
 
-    private val protocols = arrayOf("TLSv1.2") //"TLSv1.3"
-    private val ciphers = arrayOf("TLS_AES_128_GCM_SHA256")
+    private val tlsServerSocketFactory: TLSServerSocketFactory = TLSServerSocketFactory()
+    private val tlsClientSocketFactory: TLSClientSocketFactory = TLSClientSocketFactory()
 
-    fun createServerSocket(port: Int): SSLServerSocket {
-        val serverSocket = SSLServerSocketFactory.getDefault()
-                .createServerSocket(port) as SSLServerSocket
-
-        serverSocket.enabledProtocols = protocols
-        serverSocket.enabledCipherSuites = ciphers
-
-        return serverSocket
+    fun createTlsServerSocket(port: Int): SSLServerSocket {
+        return tlsServerSocketFactory.createServerSocket(port)
     }
 
-    fun createClientSocket(host: String, port: Int): SSLSocket {
-        val clientSocket = SSLSocketFactory.getDefault()
-                .createSocket(host, port) as SSLSocket
+    fun createTlsClientSocket(host: String, port: Int): SSLSocket {
+        return tlsClientSocketFactory.createClientSocket(host, port)
+    }
 
-        clientSocket.enabledProtocols = protocols
-        clientSocket.enabledCipherSuites = ciphers
+    fun createServerSocket(port: Int): ServerSocket {
+        return ServerSocket(port)
+    }
 
-        return clientSocket
+    fun createClientSocket(host: String, port: Int): Socket {
+        return Socket(host, port)
     }
 }
