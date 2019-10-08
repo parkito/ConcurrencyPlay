@@ -1,6 +1,6 @@
-package com.concurrency.play.corutines.tcp
+package com.concurrency.play.net.tcp
 
-import com.concurrency.play.corutines.tls.factory.SocketFactory
+import com.concurrency.play.net.tls.factory.SocketFactory
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
@@ -34,8 +34,8 @@ fun main(args: Array<String>) {
 
     println("Publisher: publishing $message on localhost:$port")
 
-//    val publisher = Publisher(SocketFactory.createTlsClientSocket("localhost", port))
-    val publisher = Publisher(SocketFactory.createClientSocket("localhost", port))
+    val publisher = Publisher(SocketFactory.createTlsClientSocket("localhost", port))
+//    val publisher = Publisher(SocketFactory.createClientSocket("localhost", port))
     publisher.publish(message)
 
     println("Publisher: shutting down")
