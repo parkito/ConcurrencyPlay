@@ -1,6 +1,6 @@
-package com.concurrency.play.corutines.tls
+package com.concurrency.play.net.tls
 
-import com.concurrency.play.corutines.tls.factory.SocketFactory
+import com.concurrency.play.net.tls.factory.SocketFactory
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.IOException

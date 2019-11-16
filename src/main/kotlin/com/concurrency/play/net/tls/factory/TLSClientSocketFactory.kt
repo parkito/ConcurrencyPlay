@@ -1,11 +1,8 @@
-package com.concurrency.play.corutines.tls.factory
+package com.concurrency.play.net.tls.factory
 
+import java.io.FileInputStream
 import java.security.KeyStore
-import javax.net.ssl.KeyManagerFactory
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocket
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManagerFactory
+import javax.net.ssl.*
 
 class TLSClientSocketFactory {
 
@@ -16,13 +13,13 @@ class TLSClientSocketFactory {
     }
 
     private fun createClientFactory(): SSLSocketFactory {
-        val context = SSLContext.getInstance(TLS_VERSION)
+        val context = SSLContext.getInstance(FactoryConstants.TLS_VERSION)
 
         val keyStore = createKeyStore()
         val keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm())
-        keyManagerFactory.init(keyStore, "".toCharArray())
+        keyManagerFactory.init(keyStore, "password".toCharArray())
 
-        val trustStore = createTrustStore()
+        val trustStore = createKeyStore()
         val trustManagerFactory = TrustManagerFactory
                 .getInstance(TrustManagerFactory.getDefaultAlgorithm())
         trustManagerFactory.init(trustStore)
@@ -33,7 +30,11 @@ class TLSClientSocketFactory {
     }
 
     private fun createKeyStore(): KeyStore {
-        return KeyStore.getInstance("todo")
+        val store = KeyStore.getInstance("PKCS12")
+        val fis = FileInputStream("/home/artyom.karnov/work/bids/ConcurrencyPlay/src/main/resources/keystore.jks")
+        store.load(fis, "password".toCharArray())
+
+        return store
     }
 
     private fun createTrustStore(): KeyStore {

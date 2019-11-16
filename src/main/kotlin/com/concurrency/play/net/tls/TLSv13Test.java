@@ -1,4 +1,4 @@
-package com.concurrency.play.corutines.tls;
+package com.concurrency.play.net.tls;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
