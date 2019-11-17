@@ -1,5 +1,6 @@
 package com.concurrency.play.exers.chap2;
 
+import com.concurrency.play.utils.Utils;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ public class ThreadConfinedTest {
         ExecutorService executor = Executors.newFixedThreadPool(100);
         dfTesting(executor, sd::format);
         executor.shutdown();
+        Utils.sleepSeconds(5);
     }
 
     @Test()
@@ -26,6 +28,34 @@ public class ThreadConfinedTest {
         ExecutorService executor = Executors.newFixedThreadPool(100);
         dfTesting(executor, threadConfined::format);
         executor.shutdown();
+        Utils.sleepSeconds(5);
+    }
+
+    @Test()
+    public void stackConfinedTest() {
+        StackConfined stackConfined = new StackConfined();
+        ExecutorService executor = Executors.newFixedThreadPool(100);
+        dfTesting(executor, stackConfined::format);
+        executor.shutdown();
+        Utils.sleepSeconds(5);
+    }
+
+    @Test()
+    public void objectConfinedTest() {
+        ObjectConfined objectConfined = new ObjectConfined();
+        ExecutorService executor = Executors.newFixedThreadPool(100);
+        dfTesting(executor, objectConfined::format);
+        executor.shutdown();
+        Utils.sleepSeconds(5);
+    }
+
+    @Test()
+    public void immutableConfinedTest() {
+        ImmutableParser immutableParser = new ImmutableParser();
+        ExecutorService executor = Executors.newFixedThreadPool(100);
+        dfTesting(executor, immutableParser::format);
+        executor.shutdown();
+        Utils.sleepSeconds(5);
     }
 
     private void dfTesting(ExecutorService executor, Function<Date, String> function) {
@@ -53,6 +83,7 @@ public class ThreadConfinedTest {
                         for (Date date : dates) {
                             String result = function.apply(date);
                             if (!parsedDates.contains(result)) {
+                                System.out.println("Error");
                                 throw new IllegalStateException("Incorrect parsed date " + result);
                             }
                         }
