@@ -20,6 +20,11 @@ class Intro {
         return IntStream.rangeClosed(1, 100)
                 .mapToObj { "$ctr ${Math.sqrt(Math.E * Math.PI * it)}" }
     }
+
+    fun print(str: String) {
+        println("${Thread.currentThread().name} $str")
+    }
+
 }
 
 fun main() {
@@ -32,22 +37,18 @@ fun main() {
     val flux5 = intro.getFlux()
 
     flux1.subscribe() {
-        prnt(it)
+        intro.print(it)
         Thread.sleep(1000)
 
     }
     println("here1")
-    flux2.subscribe { s -> prnt(s) }
+    flux2.subscribe { s -> intro.print(s) }
     println("here2")
-    flux3.subscribe { s -> prnt(s) }
+    flux3.subscribe { s -> intro.print(s) }
 
 
 //    listOf(flux1, flux2, flux3, flux4, flux5).forEach {
 //        it.subscribe { s -> print(s) }
 //        it.doFinally { print("finish") }
 //    }
-}
-
-private fun prnt(str: String) {
-    println("${Thread.currentThread().name} $str")
 }
