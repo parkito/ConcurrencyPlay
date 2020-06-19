@@ -44,6 +44,7 @@ allprojects {
         implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         implementation "org.junit.jupiter:junit-jupiter-api:5.3.1"
         implementation "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+        implementation "org.springframework.boot:spring-boot-starter-webflux:2.3.0.RELEASE"
     }
 }
 
