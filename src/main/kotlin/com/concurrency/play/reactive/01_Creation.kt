@@ -7,12 +7,16 @@ import reactor.adapter.JdkFlowAdapter
 import reactor.core.publisher.Flux
 import reactor.core.publisher.FluxSink
 import reactor.core.publisher.Mono
+import reactor.core.publisher.Sinks
+import reactor.core.publisher.Sinks.EmitFailureHandler.FAIL_FAST
+import reactor.core.publisher.Sinks.EmitResult
 import reactor.test.StepVerifier
 import java.util.Date
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Supplier
 import java.util.stream.Stream
+
 
 class Basics {
 
@@ -76,5 +80,21 @@ class Basics {
             }
             integerFluxSink.complete()
         }
+    }
+
+    @Test
+    fun emitterProcessor() {
+        //Producers are deprecated use sinks instead
+        val replaySink = Sinks.many().replay().all<Int>()
+        replaySink.emitNext(1, FAIL_FAST)
+        replaySink.emitNext(2, FAIL_FAST)
+        val result: EmitResult = replaySink.tryEmitNext(3) //would return FAIL_NON_SERIALIZED
+        result.isFailure
+
+        val fluxView = replaySink.asFlux()
+        fluxView
+            .takeWhile { i: Int -> i < 10 }
+            .log()
+            .blockLast()
     }
 }
