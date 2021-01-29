@@ -23,6 +23,7 @@ allprojects {
   version = '0.0.1'
   group = 'com.siksmfp.concurrency.play'
   sourceCompatibility = JavaVersion.VERSION_11
+  sourceSets.test.kotlin.srcDirs = ['src/test/kotlin']
 
   compileKotlin {
     kotlinOptions {
@@ -48,6 +49,7 @@ allprojects {
     implementation "org.junit.jupiter:junit-jupiter-api:$jupiterVersion"
     implementation "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
     implementation "org.springframework:spring-webflux:$springVersion"
+    implementation "io.projectreactor:reactor-test:3.4.2"
   }
 }
 
