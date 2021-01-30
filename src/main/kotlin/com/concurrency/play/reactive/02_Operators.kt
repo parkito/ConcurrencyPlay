@@ -1,9 +1,11 @@
 package com.concurrency.play.reactive
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
+import java.time.Duration
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Function
@@ -57,5 +59,36 @@ class Operators {
 
         composedFlux.subscribe { d: String -> println("Subscriber 1 to Composed MapAndFilter :$d") }
         composedFlux.subscribe { d: String -> println("Subscriber 2 to Composed MapAndFilter: $d") }
+    }
+
+    @Test
+    fun thenMany() {
+        val letters = AtomicInteger()
+        val numbers = AtomicInteger()
+        val lettersPublisher = Flux.just("a", "b", "c")
+            .doOnNext { letters.incrementAndGet() }
+        val numbersPublisher = Flux.just(4, 5, 6)
+            .doOnNext { numbers.incrementAndGet() }
+
+        val thisBeforeThat = lettersPublisher.thenMany(numbersPublisher)
+
+        StepVerifier.create(thisBeforeThat).expectNext(4, 5, 6).verifyComplete()
+        assertEquals(letters.get(), 3)
+        assertEquals(numbers.get(), 3)
+    }
+
+    @Test
+    fun flatMap() {
+        val data = Flux.just(Pair(1, 300), Pair(2, 200), Pair(3, 100)) // <1>
+            .flatMap { delayReplyFor(it.first, it.second) }
+
+        StepVerifier
+            .create(data)
+            .expectNext(3, 2, 1)
+            .verifyComplete()
+    }
+
+    private fun delayReplyFor(i: Int, delay: Int): Flux<Int> {
+        return Flux.just(i).delayElements(Duration.ofMillis(delay.toLong()))
     }
 }
