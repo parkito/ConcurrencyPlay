@@ -1,4 +1,4 @@
-package com.siksmfp.concurrency.algo.lock.api;
+package com.siksmfp.concurrency.algo.algo.lock.api;
 
 public interface Lock {
     void lock();

@@ -1,4 +1,4 @@
-package com.siksmfp.concurrency.common;
+package com.siksmfp.concurrency.algo.common;
 
 public class ThreadID {
 

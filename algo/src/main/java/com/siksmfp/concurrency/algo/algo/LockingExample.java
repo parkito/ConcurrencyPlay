@@ -1,10 +1,10 @@
-package com.siksmfp.concurrency.algo;
+package com.siksmfp.concurrency.algo.algo;
 
-import com.siksmfp.concurrency.algo.lock.LamportBakery;
-import com.siksmfp.concurrency.algo.lock.Peterson;
-import com.siksmfp.concurrency.algo.lock.api.Lock;
-import com.siksmfp.concurrency.common.ThreadID;
-import com.siksmfp.concurrency.common.Threads;
+import com.siksmfp.concurrency.algo.common.ThreadID;
+import com.siksmfp.concurrency.algo.algo.lock.LamportBakery;
+import com.siksmfp.concurrency.algo.algo.lock.Peterson;
+import com.siksmfp.concurrency.algo.algo.lock.api.Lock;
+import com.siksmfp.concurrency.algo.common.Threads;
 
 public class LockingExample {
     private static final String ZERO_THREAD = "0";

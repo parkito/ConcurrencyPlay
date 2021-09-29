@@ -1,7 +1,7 @@
-package com.siksmfp.concurrency.algo.lock;
+package com.siksmfp.concurrency.algo.algo.lock;
 
-import com.siksmfp.concurrency.algo.lock.api.Lock;
-import com.siksmfp.concurrency.common.ThreadID;
+import com.siksmfp.concurrency.algo.common.ThreadID;
+import com.siksmfp.concurrency.algo.algo.lock.api.Lock;
 
 //Peterson locking algorithm. Works only for 2 threads
 public class Peterson implements Lock {
