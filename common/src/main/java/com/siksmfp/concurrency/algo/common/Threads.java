@@ -11,4 +11,8 @@ public class Threads {
             throw new IllegalStateException(ex);
         }
     }
+
+    public static String threadId() {
+        return Thread.currentThread().getName();
+    }
 }
