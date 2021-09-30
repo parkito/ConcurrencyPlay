@@ -35,5 +35,21 @@ public class B_Chaining {
         );
 
         System.out.println(ints.get());
+
+        //consumers
+        ints.thenAccept(nums -> {
+            System.out.println(Threads.threadId());
+            System.out.println(nums);
+        });
+
+        ints.thenAcceptAsync(nums -> {
+            System.out.println(Threads.threadId());
+            System.out.println(nums);
+        });
+
+        ints.thenRun(
+                //no access to previous stage
+                () -> System.out.println(Threads.threadId())
+        );
     }
 }
