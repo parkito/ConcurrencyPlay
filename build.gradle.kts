@@ -10,7 +10,7 @@ buildscript {
 plugins {
     java
     kotlin("jvm") version "1.6.10"
-}git
+}
 
 allprojects {
     group = "com.siksmfp"
