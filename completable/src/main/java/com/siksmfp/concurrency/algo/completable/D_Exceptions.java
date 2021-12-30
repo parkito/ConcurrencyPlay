@@ -1,9 +1,8 @@
-package com.concurrency.play.completable.advance.tutorial;
+package com.siksmfp.concurrency.algo.completable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ExceptionHandling {
-
+public class D_Exceptions {
     public static void main(String[] args) {
         exceptionally();
         handling();
@@ -13,6 +12,7 @@ public class ExceptionHandling {
         int age = -1;
 
         CompletableFuture<String> maturityFuture = CompletableFuture.supplyAsync(() -> {
+            System.out.println();
             if (age < 0) {
                 throw new IllegalArgumentException("Age can not be negative");
             }

@@ -1,5 +1,5 @@
 rootProject.name = "ConcurrencyPlay"
 include(":algo")
 include(":common")
-include("completable")
-include("reactive")
+include(":completable")
+include(":reactive")

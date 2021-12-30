@@ -9,8 +9,8 @@ buildscript {
 
 plugins {
     java
-    kotlin("jvm") version "1.5.31"
-}
+    kotlin("jvm") version "1.6.10"
+}git
 
 allprojects {
     group = "com.siksmfp"
@@ -32,7 +32,6 @@ subprojects {
     }
 
     dependencies {
-        implementation(project(":common"))
         implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
         testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiter5Version")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiter5Version")
