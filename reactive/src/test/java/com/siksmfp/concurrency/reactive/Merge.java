@@ -37,4 +37,108 @@ public class Merge {
     private String from(Tuple2 tuple2) {
         return tuple2.getT1() + ":" + tuple2.getT2();
     }
+
+    int min = 0;
+    int max = 5;
+
+    Flux<Integer> evenNumbers = Flux
+            .range(min, max)
+            .filter(x -> x % 2 == 0); // i.e. 2, 4
+
+    Flux<Integer> oddNumbers = Flux
+            .range(min, max)
+            .filter(x -> x % 2 > 0);  // ie. 1, 3, 5
+
+    //The concatenation is achieved by sequentially subscribing to the first source then waiting for it
+    //to complete before subscribing to the next, and so on until the last source completes.
+    //concatWith - just concatenation of 2 sources
+    @Test
+    public void contact() {
+        Flux<Integer> fluxOfIntegers = Flux.concat(
+                evenNumbers,
+                oddNumbers
+        );
+
+        StepVerifier.create(fluxOfIntegers)
+                .expectNext(0)
+                .expectNext(2)
+                .expectNext(4)
+                .expectNext(1)
+                .expectNext(3)
+                .expectComplete()
+                .verify();
+    }
+
+    //CombineLatest will generate data provided by the combination of the most recently published
+    //values from each of the Publisher sources
+    @Test
+    public void combineLast() {
+        Flux<Integer> fluxOfIntegers = Flux.combineLatest(
+                evenNumbers,
+                oddNumbers,
+                Integer::sum
+        );
+
+        StepVerifier.create(fluxOfIntegers)
+                .expectNext(5) // 4 + 1
+                .expectNext(7) // 4 + 3
+                .expectComplete()
+                .verify();
+    }
+
+    @Test
+    public void merge1() {
+        Flux<Integer> fluxOfIntegers = Flux.merge(
+                evenNumbers.delayElements(Duration.ofMillis(500L)),
+                oddNumbers.delayElements(Duration.ofMillis(300L))
+        );
+
+        StepVerifier.create(fluxOfIntegers)
+                .expectNext(1)
+                .expectNext(0)
+                .expectNext(3)
+                .expectNext(2)
+                .expectNext(4)
+                .expectComplete()
+                .verify();
+    }
+
+    //Unlike concat, sources are subscribed eagerly.
+    //
+    //Also, unlike merge, their emitted values are merged into the final sequence in subscription order
+    @Test
+    public void mergeSequential() {
+        Flux<Integer> fluxOfIntegers = Flux.mergeSequential(
+                evenNumbers,
+                oddNumbers
+        );
+
+        StepVerifier.create(fluxOfIntegers)
+                .expectNext(0)
+                .expectNext(2)
+                .expectNext(4)
+                .expectNext(1)
+                .expectNext(3)
+                .expectComplete()
+                .verify();
+    }
+
+    // This variant of the static merge method will delay any error until after
+    // the rest of the merge backlog has been processed.
+    @Test
+    public void mergeDelayError() {
+        Flux<Integer> fluxOfIntegers = Flux.mergeDelayError(1,
+                evenNumbers.delayElements(Duration.ofMillis(500L)),
+                oddNumbers.delayElements(Duration.ofMillis(300L))
+        );
+
+        StepVerifier.create(fluxOfIntegers)
+                .expectNext(1)
+                .expectNext(2)
+                .expectNext(3)
+                .expectNext(5)
+                .expectNext(4)
+                .expectComplete()
+                .verify();
+    }
 }
